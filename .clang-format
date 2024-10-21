@@ -1,0 +1,11 @@
+BasedOnStyle: Google
+DerivePointerAlignment: false
+IncludeCategories:
+  - Regex: '^(<|"(benchmark|db|helpers)/)'
+    Priority: 1
+  - Regex: '^"(leveldb)/'
+    Priority: 2
+  - Regex: '^"(issues|port|table|third_party|util)/'
+    Priority: 3
+  - Regex: ".*"
+    Priority: 4
