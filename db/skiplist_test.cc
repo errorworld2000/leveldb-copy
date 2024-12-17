@@ -5,9 +5,9 @@
 #include "port/port.h"
 #include "port/thread_annotations.h"
 #include "util/hash.h"
-#include "util/testutil.h"
 
 #include "gtest/gtest.h"
+#include "test/util/testutil.h"
 
 namespace leveldb {
 typedef uint64_t Key;

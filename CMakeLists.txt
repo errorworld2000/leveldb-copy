@@ -59,6 +59,7 @@ separate_sources("${CMAKE_CURRENT_SOURCE_DIR}/db" DB_HEADERS DB_SOURCES DB_TEST_
 separate_sources("${CMAKE_CURRENT_SOURCE_DIR}/port" PORT_HEADERS PORT_SOURCES PORT_TEST_SOURCES)
 separate_sources("${CMAKE_CURRENT_SOURCE_DIR}/table" TABLE_HEADERS TABLE_SOURCES TABLE_TEST_SOURCES)
 separate_sources("${CMAKE_CURRENT_SOURCE_DIR}/util" UTIL_HEADERS UTIL_SOURCES UTIL_TEST_SOURCES)
+file(GLOB TEST_UTIL "test/util/*")
 # message(STATUS "PORT_HEADERS: ${PORT_HEADERS}")
 
 set(LEVELDB_PUBLIC_INCLUDE_DIR "include/leveldb")
@@ -149,6 +150,7 @@ if(LEVELDB_BUILD_TESTS)
     ${PORT_TEST_SOURCES}
     ${TABLE_TEST_SOURCES}
     ${UTIL_TEST_SOURCES}
+    ${TEST_UTIL}
   )
   target_link_libraries(leveldb_tests leveldb gmock gtest gtest_main)
   target_compile_definitions(leveldb_tests

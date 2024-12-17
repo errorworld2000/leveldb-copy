@@ -1,9 +1,10 @@
 #include "leveldb/env.h"
 
 #include "util/env_windows_test_helper.h"
-#include "util/testutil.h"
 
 #include "gtest/gtest.h"
+#include "test/util/testutil.h"
+
 
 namespace leveldb {
 
