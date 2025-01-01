@@ -13,7 +13,6 @@
 
 #include "gtest/gtest.h"
 
-
 namespace leveldb {
 namespace log {
 

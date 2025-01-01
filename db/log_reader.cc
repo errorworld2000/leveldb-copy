@@ -188,6 +188,7 @@ void Reader::ReportDrop(uint64_t bytes, const Status& reason) {
 unsigned int Reader::ReadPhysicalRecord(Slice* result) {
   while (true) {
     if (buffer_.size() < kHeaderSize) {
+      // check whether last block
       if (!eof_) {
         // Last read was a full read, so this is a trailer to skip
         buffer_.clear();

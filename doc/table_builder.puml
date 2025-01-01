@@ -1,0 +1,40 @@
+@startuml TableBuilder
+start
+
+:初始化 TableBuilder;
+if (过滤器启用?) then (是)
+    :初始化 FilterBlock;
+else (否)
+    :跳过 FilterBlock 初始化;
+endif
+
+while (有新的键值对?) is (是/需确保新键大于旧键)
+    :判断index_block是否需要更新;
+    :filter_block.AddKey(key)（启用的话）;
+    :更新旧键，计数器++ ;
+    :data_block.Add(key,value);
+    if (data_block >options.block_size?) then (是)
+        :调用 Flush结束一个块的构建并
+        进行压缩添加压缩码校验码步骤;
+        :写入数据块到文件并更新过滤器;
+        :存储数据块的handle并提示索引更新;
+    else (否)
+        :继续构建 data_block;
+    endif
+endwhile
+
+if (完成构建?) then (是)
+    :调用 Finish;
+    :调用Flush把剩余data_block写入文件;
+    if (filter_block存在?) then (是)
+        :写入 filter_block;
+    endif
+    :写入 MetaIndex Block(存有filter_block的handle);
+    :写入 Index Block;
+    :写入 Footer;
+else (放弃构建)
+    :调用 Abandon;
+endif
+
+stop
+@enduml

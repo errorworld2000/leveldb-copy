@@ -1,0 +1,43 @@
+@startuml TableFormat
+
+' 定义 Table 结构
+package "Table 结构" {
+
+    map FooterFormat {
+        MetaBlockOffset => variant64
+        MetaBlockSize => variant64
+        IndexBlockOffset => variant64
+        IndexBlockSize => variant64
+        PaddingBytes => 0-36Bytes
+        MagicNumber => 8Bytes
+    }
+
+    map RecordFormat {
+        SharedKeySize => variant32
+        NoSharedKeySize=>variant32
+        ValueSize=>variant32
+        NoSharedKey=>char[NoSharedKeySize]
+        Value=>char[ValueSize]
+    }
+
+    map BlockFormat {
+        RecordGroup 1*->RecordFormat
+        ...*->RecordFormat
+        RecordGroup m*->RecordFormat
+        GroupOffset=>uint32[GroupCount]
+        GroupCount=>uint32
+        CompressType=>1B
+        CRC32=>8B
+    }
+    map TableFormat{
+        DataBlock 1*->BlockFormat
+        ...*->BlockFormat
+        DataBlock m*->BlockFormat
+        MetaBlock*->BlockFormat
+        IndexBlock*->BlockFormat
+        Footer*-->FooterFormat
+    }
+
+}
+
+@enduml

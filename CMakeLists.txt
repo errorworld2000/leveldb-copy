@@ -160,7 +160,7 @@ if(LEVELDB_BUILD_TESTS)
   add_test(NAME "leveldb_tests" COMMAND "leveldb_tests")
 endif(LEVELDB_BUILD_TESTS)
 
-add_executable(simple_test "test.cpp")
+add_executable(simple_test "test/simple_test.cpp")
 add_test(NAME "simple_test" COMMAND "simple_test")
 
 # ///////////////////////////////////构建安装//////////////////////////////////////////

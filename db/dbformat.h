@@ -11,10 +11,10 @@
 
 #include "leveldb/comparator.h"
 #include "leveldb/filter_policy.h"
+#include "leveldb/options.h"
 
 #include "util/coding.h"
 #include "util/logging.h"
-
 
 namespace leveldb {
 

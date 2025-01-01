@@ -57,7 +57,7 @@ inline int Slice::compare(const Slice& s) const {
   if (r == 0) {
     if (size_ < s.size_)
       return -1;
-    else
+    else if (size_ > s.size_)
       return 1;
   }
   return r;
