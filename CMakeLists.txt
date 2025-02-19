@@ -163,6 +163,11 @@ endif(LEVELDB_BUILD_TESTS)
 add_executable(simple_test "test/simple_test.cpp")
 add_test(NAME "simple_test" COMMAND "simple_test")
 
+add_executable(db_test "test/db_test.cpp")
+target_link_libraries(db_test leveldb)
+add_test(NAME "db_test" COMMAND "db_test")
+
+
 # ///////////////////////////////////构建安装//////////////////////////////////////////
 
 option(LEVELDB_INSTALL "Install LevelDB's header and library" ON)

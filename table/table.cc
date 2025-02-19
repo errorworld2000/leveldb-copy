@@ -129,6 +129,7 @@ static void ReleaseBlock(void* arg, void* h) {
   cache->Release(handle);
 }
 
+// read block by index_value;
 Iterator* Table::BlockReader(void* arg, const ReadOptions& options,
                              const Slice& index_value) {
   Table* table = reinterpret_cast<Table*>(arg);
