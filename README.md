@@ -62,7 +62,7 @@
 ---
 
 ## **文档链接**
-- **[整体架构](doc/leveldb.md)**  
+- **[相关文档](https://errorworld2000-github-io.vercel.app/categories/leveldb/)**  
   详细说明 LevelDB 的核心组件及其工作原理，包括 MemTable、Immutable MemTable、Log、SSTable、Manifest 等。
 
 ---
