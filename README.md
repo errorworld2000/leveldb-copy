@@ -1,11 +1,3 @@
-<div align=center>
-  
-[![Star History Chart](https://api.star-history.com/svg?repos=errorworld2000/leveldb-copy&type=Date)](https://star-history.com/#errorworld2000/leveldb-copy&Date)
-
-</div>
-
-以下是优化后的 **TODO 列表** 和 **文档链接**，格式更加清晰，内容更加详细：
-
 ---
 
 ## **TODO 列表**
@@ -62,7 +54,15 @@
 ---
 
 ## **文档链接**
-- **[整体架构](doc/leveldb.md)**  
+- **[相关文档](https://errorworld2000-github-io.vercel.app/categories/leveldb/)**  
   详细说明 LevelDB 的核心组件及其工作原理，包括 MemTable、Immutable MemTable、Log、SSTable、Manifest 等。
+
+---
+
+<div align=center>
+  
+[![Star History Chart](https://api.star-history.com/svg?repos=errorworld2000/leveldb-copy&type=Date)](https://star-history.com/#errorworld2000/leveldb-copy&Date)
+
+</div>
 
 ---
