@@ -34,9 +34,18 @@ set(CRC32C_BUILD_TESTS OFF CACHE INTERNAL "")
 set(CRC32C_BUILD_BENCHMARKS OFF CACHE INTERNAL "")
 add_subdirectory(third_party/crc32c)
 include(CheckLibraryExists)
-check_library_exists(snappy snappy_compress "" HAVE_SNAPPY)
-check_library_exists(zstd zstd_compress "" HAVE_ZSTD)
-check_library_exists(tcmalloc malloc "" HAVE_TCMALLOC)
+set(SNAPPY_BUILD_TESTS OFF CACHE INTERNAL "")
+add_subdirectory(third_party/snappy)
+set(ZSTD_BUILD_PROGRAMS OFF CACHE INTERNAL "")
+set(ZSTD_BUILD_TESTS OFF CACHE INTERNAL "")
+add_subdirectory(third_party/zstd/build/cmake)
+
+option(LEVELDB_WITH_TCMALLOC "Build LevelDB with tcmalloc" ON)
+if(LEVELDB_WITH_TCMALLOC)
+  add_subdirectory(third_party/tcmalloc)
+  target_link_libraries(leveldb tcmalloc)
+endif()
+
 
 # ///////////////////////////////////文件//////////////////////////////////////////
 # 定义一个通用函数来分离普通源文件和测试源文件
@@ -132,7 +141,7 @@ endif(BUILD_SHARED_LIBS)
 
 # Needed by port_stdcxx.h
 find_package(Threads REQUIRED)
-target_link_libraries(leveldb Threads::Threads crc32c)
+target_link_libraries(leveldb Threads::Threads crc32c snappy zstd)
 
 # ///////////////////////////////////构建测试//////////////////////////////////////////
 
