@@ -1,35 +1,39 @@
 cmake_minimum_required(VERSION 3.11)
-project(leveldb VERSION 1.23.0 LANGUAGES C CXX)
+project(leveldb VERSION 0.0.1 LANGUAGES C CXX)
 
+# ---------- 项目信息与编译器/标准 ----------
+message(STATUS "CMake version: ${CMAKE_VERSION}")
+message(STATUS "CMake generator: ${CMAKE_GENERATOR}")
+message(STATUS "C compiler: ${CMAKE_C_COMPILER}")
+message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER}")
 message(STATUS "Compiler definitions: ${CMAKE_CXX_FLAGS}")
-
-
-if(NOT CMAKE_C_STANDARD)
-    set(CMAKE_C_STANDARD 11)
-    set(CMAKE_C_STANDARD_REQUIRED OFF)
-    set(CMAKE_C_EXTENSIONS OFF)
-endif(NOT CMAKE_C_STANDARD)
-
-if(NOT CMAKE_CXX_STANDARD)
-    set(CMAKE_CXX_STANDARD 17)
-    set(CMAKE_CXX_STANDARD_REQUIRED ON)
-    set(CMAKE_CXX_EXTENSIONS OFF)
-endif(NOT CMAKE_CXX_STANDARD)
-
-if (WIN32)
-  set(LEVELDB_PLATFORM_NAME LEVELDB_PLATFORM_WINDOWS)
-  # TODO(cmumford): Make UNICODE configurable for Windows.
-  add_definitions(-D_UNICODE -DUNICODE)
-else (WIN32)
-  set(LEVELDB_PLATFORM_NAME LEVELDB_PLATFORM_POSIX)
-endif (WIN32)
-
-message(STATUS "LEVELDB_PLATFORM_NAME: ${LEVELDB_PLATFORM_NAME}")
 message(STATUS "PROJECT_BINARY_DIR: ${PROJECT_BINARY_DIR}")
 
+# 使用明确的 C/C++ 标准与要求
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# if (WIN32)
+#   set(LEVELDB_PLATFORM_NAME LEVELDB_PLATFORM_WINDOWS)
+#   # TODO(cmumford): Make UNICODE configurable for Windows.
+#   add_definitions(-D_UNICODE -DUNICODE)
+# else (WIN32)
+#   set(LEVELDB_PLATFORM_NAME LEVELDB_PLATFORM_POSIX)
+# endif (WIN32)
+
+# message(STATUS "LEVELDB_PLATFORM_NAME: ${LEVELDB_PLATFORM_NAME}")
+
+
+# 检测第三方库
+set(CRC32C_BUILD_TESTS OFF CACHE INTERNAL "")
+set(CRC32C_BUILD_BENCHMARKS OFF CACHE INTERNAL "")
+add_subdirectory(third_party/crc32c)
 include(CheckLibraryExists)
-check_library_exists(crc32c crc32c_value "" HAVE_CRC32C)
 check_library_exists(snappy snappy_compress "" HAVE_SNAPPY)
 check_library_exists(zstd zstd_compress "" HAVE_ZSTD)
 check_library_exists(tcmalloc malloc "" HAVE_TCMALLOC)
@@ -128,7 +132,7 @@ endif(BUILD_SHARED_LIBS)
 
 # Needed by port_stdcxx.h
 find_package(Threads REQUIRED)
-target_link_libraries(leveldb Threads::Threads)
+target_link_libraries(leveldb Threads::Threads crc32c)
 
 # ///////////////////////////////////构建测试//////////////////////////////////////////
 

@@ -22,9 +22,7 @@
 
 #endif  // defined(LEVELDB_HAS_PORT_CONFIG_H)
 
-#if HAVE_CRC32C
 #include <crc32c/crc32c.h>
-#endif  // HAVE_CRC32C
 #if HAVE_SNAPPY
 #include <snappy.h>
 #endif  // HAVE_SNAPPY
@@ -208,15 +206,7 @@ inline bool GetHeapProfile(void (*func)(void*, const char*, int), void* arg) {
 }
 
 inline uint32_t AcceleratedCRC32C(uint32_t crc, const char* buf, size_t size) {
-#if HAVE_CRC32C
   return ::crc32c::Extend(crc, reinterpret_cast<const uint8_t*>(buf), size);
-#else
-  // Silence compiler warnings about unused arguments.
-  (void)crc;
-  (void)buf;
-  (void)size;
-  return 0;
-#endif  // HAVE_CRC32C
 }
 
 }  // namespace port
